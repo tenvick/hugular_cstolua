@@ -64,20 +64,6 @@ public class ExportAssetBundles
         ExportGourpAssetBundle(target);
     }
 
-
-    //[MenuItem("Assets/Language Asset Export", false,2)]
-    //static void ExportTextAsset()
-    //{
-    //    Object[] selection = Selection.objects;
-    //    foreach (Object obj1 in selection)
-    //    {
-    //        if (obj1 is UnityEngine.TextAsset)
-    //        {
-    //            BuildTextAsset(obj1);
-    //        }
-    //    }
-    //}
-
     #endregion
 
     #endregion
@@ -160,8 +146,6 @@ public class ExportAssetBundles
         EditorUtility.UnloadUnusedAssets();
 #endif
     }
-
-
 
     static void ExportFolderDependencies(BuildTarget btarget)
     {
@@ -358,15 +342,6 @@ public class ExportAssetBundles
         return outPath + "/" + buildTarget.ToString();
     }
 
-    static public string GetOutPath()
-    {
-        return outPath + "/" + target.ToString();
-    }
-
-    static public BuildTarget GetTarget()
-    {
-        return target;
-    }
 
     static void ExportSingleAssetGameObjectDependenciesCorssReference(string path, BuildAssetBundleOptions options, BuildTarget buildTarget)
     {
@@ -444,112 +419,22 @@ public class ExportAssetBundles
     #endregion
 
     #region public
-    ///// <summary>
-    ///// path 为相对路径 Assets/
-    ///// </summary>
-    ///// <param name="path">Assets/。。。</param>
-    ///// <param name="outPath"></param>
-    //static public void BuildTextAsset(string path, string outPath = "Assets/StreamingAssets/Lan/")
-    //{
-    //    Object txt =  AssetDatabase.LoadAssetAtPath(path, typeof(TextAsset));
-    //    BuildTextAsset(txt, outPath);
-    //}
-
-    //static public void BuildTextAsset(Object txt, string outPath = "Assets/StreamingAssets/Lan/")
-    //{
-    //    string name = txt.name + "." + Common.LANGUAGE_SUFFIX;
-    //    name = name.Replace(" ", "_");//
-    //    string tarName = outPath + name;
-    //    BuildPipeline.BuildAssetBundle(txt, null, tarName, BuildAssetBundleOptions.CompleteAssets, target);
-    //    Debug.Log(txt.name + " export");
-    //}
-
+   
     static public void BuildAB(Object main, Object[] assets, string pathName, BuildAssetBundleOptions bbo)
     {
         BuildPipeline.BuildAssetBundle(main, assets, pathName, bbo, target);
     }
-    #endregion
 
-    #region unity5
 
-#if UNITY_5
-
-    //[MenuItem("Assets/AssetBundle Build BySelect", false, 2)]
-    public static void BuildAssetBundle()
+    static public string GetOutPath()
     {
-       List<AssetBundleBuild> abs = new List<AssetBundleBuild>();
-       Object[] selection = Selection.objects;
-
-        foreach (Object s in selection)
-        {
-            if (s is GameObject)
-            {
-                AssetBundleBuild ab = new AssetBundleBuild();
-                ab.assetBundleName = s.name;
-                var assets = new string[1];
-	            assets[0] = s.name;
-                ab.assetNames = assets;
-
-                Debug.Log(ab.assetNames[0]);
-                abs.Add(ab);
-            }
-         }
-
-        Debug.Log(abs.Count);
-
-        BuildPipeline.BuildAssetBundles(getOutPutPath(target), abs.ToArray());
+        return outPath + "/" + target.ToString();
     }
 
-    //[MenuItem("Assets/UGUI AssetBundle UI Build", false, 2)]
-    public static void BuildUGui()
+    static public BuildTarget GetTarget()
     {
-        checkstreamingAssetsPath();
-
-        string Path = "";
-
-        BuildPipeline.PushAssetDependencies();
-        Object[] selection = Selection.objects;
-
-        //BuildPipeline.BuildAssetBundles(getOutPutPath(target));
-        AssetImporter import = null;
-        foreach (Object s in selection)
-        {
-            import = AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(s));
-            Debug.Log(import.assetBundleName);
-            import.assetBundleName = s.name;
-            //import.SaveAndReimport();
-            Debug.Log(import.name);
-            if (s is GameObject)
-            {
-                var gobj = s as GameObject;
-
-
-                //AssetImporter.assetBundleName = gobj.name;
-
-                Path = AssetDatabase.GetAssetPath(s);
-                Object[] denpendencies = EditorUtility.CollectDependencies(new Object[] { s });
-
-                //foreach (var obj in denpendencies)
-                //{
-                //    //SpriteAtlasTexture
-
-                //    if (obj is Texture2D)
-                //    {
-                //        var text2d = obj as Texture2D;
-                //        Debug.Log(string.Format("w ={0} ,h ={1}",text2d.width,text2d.height));
-                //        Debug.Log(obj.name + " type = " + obj.GetType().Name);
-                //    }else if(obj is Sprite)
-                //    {
-                //        var text2d = (obj as Sprite).texture;
-                //        Debug.Log(string.Format("w ={0} ,h ={1}",text2d.width,text2d.height));
-                //        Debug.Log(obj.name + " type = " + obj.GetType().Name);
-                //    }
-                //}
-                //ExportSingleAssetGameObjectDependenciesCorssReference(Path, optionsDefault, btarget);
-                //System.Threading.Thread.Sleep(100);
-            }
-        }
+        return target;
     }
-#endif
     #endregion
+
 }

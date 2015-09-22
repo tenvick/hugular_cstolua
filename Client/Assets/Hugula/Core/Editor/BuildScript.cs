@@ -37,29 +37,6 @@ public class BuildScript
     {
         CheckstreamingAssetsPath();
 
-        //List<AssetBundleBuild> abs = new List<AssetBundleBuild>();
-        //Object[] selection = Selection.objects;
-
-        //foreach (Object s in selection)
-        //{
-        //    //if (s is GameObject)
-        //    //{
-        //        AssetBundleBuild ab = new AssetBundleBuild();
-        //        ab.assetBundleName = s.name;
-        //        var assets = new string[1];
-        //        assets[0] = s.name;
-        //        ab.assetNames = assets;
-
-        //        Debug.Log(ab.assetNames[0]);
-        //        abs.Add(ab);
-        //    //}
-        //}
-
-        //Debug.Log(abs.Count);
-        //string path = GetOutPutPath(target);
-        //Debug.Log(path);
-        //BuildPipeline.BuildAssetBundles(path, abs.ToArray(), optionsDefault, target);
-
         BuildPipeline.BuildAssetBundles(GetOutPutPath(target), optionsDefault, target);
     }
 
@@ -83,7 +60,6 @@ public class BuildScript
     {
         return Path.Combine(outPath, buildTarget.ToString());// outPath + "/" + buildTarget.ToString();
     }
-    
 
     static public BuildTarget GetTarget()
     {

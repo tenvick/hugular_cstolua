@@ -33,11 +33,9 @@ public class ExportResources{
 	#endregion
 
 	#region 
-	[MenuItem("Pu Game AES/", false, 10)]
-	static void Breaker2() { }
 
-	[MenuItem("Pu Game AES/GenerateKey", false, 12)]
-	static void GenerateKey() 
+    //[MenuItem("Hugula AES/GenerateKey", false, 12)]
+	public static void GenerateKey() 
 	{ 
 		using (System.Security.Cryptography.RijndaelManaged myRijndael = new System.Security.Cryptography.RijndaelManaged()) {
 			
@@ -53,8 +51,8 @@ public class ExportResources{
 		}
 	}
 
-	[MenuItem("Pu Game AES/GenerateIV", false, 13)]
-	static void GenerateIV() 
+    //[MenuItem("Hugula AES/GenerateIV", false, 13)]
+	public static void GenerateIV() 
 	{ 
 		using (System.Security.Cryptography.RijndaelManaged myRijndael = new System.Security.Cryptography.RijndaelManaged()) {
 			
@@ -83,10 +81,9 @@ public class ExportResources{
 	#endregion
 
     #region export
-    [MenuItem("Hugula/", false, 11)]
-    static void Breaker() { }
+   
 
-    [MenuItem("Hugula/export lua [Assets\\Lua]", false, 12)]
+    //[MenuItem("Hugula/export lua [Assets\\Lua]", false, 12)]
 	public static void exportLua()
 	{
 		checkLuaExportPath();
@@ -179,14 +176,10 @@ public class ExportResources{
 
 	}
 
-    [MenuItem("Hugula/export config [Assets\\Config]", false, 13)]
+    //[MenuItem("Hugula/export config [Assets\\Config]", false, 13)]
 	public static void exportConfig()
 	{
 		string  path= Application.dataPath+"/Config"; //AssetDatabase.GetAssetPath(obj).Replace("Assets","");
-        //FastZip f=new FastZip();
-        //f.Password = Common.CONFIG_ZIP_PWD; //CryptographHelper.CrypfString(zipPassword,"");
-        //f.CreateZip(outConfigPath,path,false,"^.*(.csv)$");
-        //Debug.Log(" export config done: "+outConfigPath+" !");
 
         List<string> files = getAllChildFiles(path+"/", "csv");
         string assetPath = "Assets/Config";
@@ -210,7 +203,7 @@ public class ExportResources{
 
 	}
 
-    [MenuItem("Hugula/export language [Assets\\Lan]", false, 14)]
+    //[MenuItem("Hugula/export language [Assets\\Lan]", false, 14)]
     public static void exportLanguage()
     {
         string assetPath = "Assets/Lan/";
@@ -230,11 +223,8 @@ public class ExportResources{
         }
     }
 
-    [MenuItem("Hugula/", false, 15)]
-    static void Breaker1() { }
-
  
-    [MenuItem("Hugula/build for publish ", false, 16)]
+    //[MenuItem("Hugula/build for publish ", false, 16)]
 	public static void exportPublish()
 	{
 		exportLua();
@@ -245,8 +235,6 @@ public class ExportResources{
 
         autoVerAdd();
 
-        //if(File.Exists(outAndroidZipt4f))
-        //    File.Delete(outAndroidZipt4f);
 	}
 	
 	#endregion
@@ -275,13 +263,6 @@ public class ExportResources{
              sr.WriteLine(curr);
          }
     }
-
-     //string dircAssert = string.Format("{0}/{1}",Application.streamingAssetsPath,target);
-     //       Application.streamingAssetsPath+"/AssetBundles/"+target.ToString();
-     //   if(!Directory.Exists(dircAssert))
-     //   {
-     //       Directory.CreateDirectory(dircAssert);
-     //   }
 
     private static void CheckDirectory(string fullPath)
     {

@@ -3,12 +3,13 @@
 --   
 --  author pu
 ------------------------------------------------
--- require("core.unity3d")
+require("core.unity3d")
 require("core.loader")
 json=require("lib/json")
 ResVersion = 0
-
-local resourceURL ="http://101.200.190.9/api/client/update.json?v_id=%s&platform=%s&code=%s" --http://121.199.51.39:8080/client_update?v_id=%s&platform=%s&code=%s";
+-- luanet = _G
+-- toluacs = _G
+local resourceURL ="http://192.168.18.152:8345/api" --http://121.199.51.39:8080/client_update?v_id=%s&platform=%s&code=%s";
 
 local progressBarTxt;
 local update_id="";
@@ -22,7 +23,7 @@ local RuntimePlatform= toluacs.UnityEngine.RuntimePlatform
 local Application= toluacs.UnityEngine.Application
 local PlayerPrefs = toluacs.UnityEngine.PlayerPrefs
 local WWW = toluacs.UnityEngine.WWW
-local Request=luanet.import_type("LRequest")
+local Request=luanet.LRequest 
 
 local CUtils=toluacs.CUtils
 local LuaHelper=toluacs.LuaHelper
@@ -36,22 +37,13 @@ local all,loaded = 0,0
 local function languageInit()
 	-- local lan=PlayerPrefs.GetString("Language","")
 	-- if lan=="" then lan=Application.systemLanguage:ToString() end
-    Localization.language= Application.systemLanguage:ToString() --"chinese"
+    Localization.language= "chinese" --Application.systemLanguage:ToString() --
 	print(Application.systemLanguage:ToString().."current language is "..Localization.language)
 end 
 
 local function enterGame()
      languageInit()
  	 require("begin")
-	--	if fristView then LuaHelper.Destroy(fristView) end
---	fristView = nil 
-
---	local function dsLog() 
---		print("dsLog")
---		local logo = LuaHelper.Find("Logo")
---		if logo then  LuaHelper.Destroy(logo) end 
---	end
---	delay(dsLog,1,nil)
 end
 
 local function setProgressTxt(text)
@@ -98,7 +90,7 @@ local function onUpdateItemComp(req)
 end
 
 local function  onUpdateResComp(req)
-    local www=req:get_data();
+    local www=req.data;
 	if(www) then
 		local txt=www[0]
         local res = json:decode(txt)
@@ -149,7 +141,8 @@ local function checkRes()
 	elseif(Application.platform==RuntimePlatform.WindowsEditor) then
 		enterGame()
 	else
-		-- enterGame()
+		enterGame()
+		--[[
 		 local url=string.format(resourceURL,tonumber(ResVersion),WWW.EscapeURL(Application.platform:ToString()),"0.2")
 		 local req=Request(url)
 		 req.onCompleteFn=onUpdateResComp
@@ -161,6 +154,7 @@ local function checkRes()
 		 print("begin checkRes "..url)
 		 req.onEndFn=onErr
 	     Loader:getResource(req,false)
+	     ]]
 	end
 end
 
@@ -172,8 +166,8 @@ local function checkVerion()
 	 print("checkVerion . verPath"..verPath)
 	local req=Request(verPath)
     req.assetType ="System.String"
-	req:set_onCompleteFn(onURLComp)
-	req:set_onEndFn(onURLErComp)
+	req.onCompleteFn=onURLComp
+	req.onEndFn=onURLErComp
   	--print("request create "..tostring(req))
   	--print(Loader)
     Loader:getResource(req,false)

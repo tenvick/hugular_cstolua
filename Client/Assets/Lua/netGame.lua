@@ -13,28 +13,28 @@ local NetMsgHelper = NetMsgHelper
 local NetAPIList = NetAPIList
 
 
-Net:set_onConnectionFn(function(net)
+Net.onConnectionFn=function(net)
 	print("game onConnection  ")
-end)
+end
 
-Net:set_onIntervalFn(function(net)
+Net.onIntervalFn=function(net)
 	luaGC()
-end)
+end
 
-Net:set_onAppPauseFn(function(bl)
+Net.onAppPauseFn=function(bl)
 --	print("onApplicationPause ="..tostring(bl).." isConnected="..tostring(Net.isConnected))
 --	print("pingMsg onAppPause  "..CUtils.getDateTime())
 	if bl==false then
 		if Net.isConnected==false then Net:ReConnect() end
 	end
-end)
+end
 
-Net:set_onReConnectFn(function(net)
+Net.onReConnectFn=function(net)
 	print("onReConnectFn")
 	--delay(showNetworkInfo,2,"waiting reconnection")
-end)
+end
 
-Net:set_onMessageReceiveFn(function(m)
+Net.onMessageReceiveFn=function(m)
 	local ty=m:get_Type()
 	-- print(m:Debug())
 	-- print(ty)
@@ -42,23 +42,23 @@ Net:set_onMessageReceiveFn(function(m)
 	print(" onMessageReceive  type="..tostring(ty).." Length="..tostring(m:ToArray().Length).." dataStruct ="..dataStruct)
 	local model=NetProtocalPaser:parseMessage(m,ty)
 	Proxy:distribute(ty,model)
-end)
+end
 
-Net:set_onConnectionCloseFn(function(net)
+Net.onConnectionCloseFn=function(net)
 	print("onConnectionClose")
 	--showTips("你的网络已断开！点击确定重新连接。",onReConnect)
 	-- Net:ReConnect()
 	local hall = LuaItemManager:getItemObject("hall")
 	hall:toHall()
-end)
+end
 
-Net:set_onConnectionTimeoutFn(function(net)
+Net.onConnectionTimeoutFn=function(net)
 
 	print("Connection time out")
 	--showTips("网络连接超时,点击确定重新连接。",onReConnect)
 	--showNetworkInfo("connection time out")
 	-- Net:ReConnect()
-end)
+end
 
 Net.onReConnectFn=function()
 	-- body

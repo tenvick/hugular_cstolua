@@ -6,7 +6,7 @@ local CUtils = CUtils
 alertTips.priority=99
 alertTips.assets=
 {
-    Asset("alert.u3d")
+    Asset("UIPublic.u3d",{"Alert"})
 }
 
 ------------------private-----------------

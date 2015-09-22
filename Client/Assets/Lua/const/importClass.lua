@@ -8,9 +8,9 @@ UnityEngine=luanet.UnityEngine
 local UnityEngine = UnityEngine
 ----------------------global-------------------------
 GameObject=UnityEngine.GameObject
-Vector3=UnityEngine.Vector3
-Quaternion = UnityEngine.Quaternion
-local Resources = toluacs.UnityEngine.Resources
+-- Vector3=UnityEngine.Vector3
+-- Quaternion = UnityEngine.Quaternion
+local Resources = UnityEngine.Resources
 
 -----------------------init---------------------------
 

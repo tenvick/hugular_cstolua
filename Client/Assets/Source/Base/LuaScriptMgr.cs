@@ -399,7 +399,7 @@ public class LuaScriptMgr
 //#if UNITY_EDITOR && !LUA_ZIP
 //        DoFile("strict.lua");
 //#endif
-        DoFile("Global.lua");
+        DoFile("core.Global");
         InitLayers(lua.L);
 
         unpackVec3 = GetLuaReference("Vector3.Get");
@@ -424,7 +424,7 @@ public class LuaScriptMgr
         traceback = GetLuaFunction("traceback");
 #endif                       
 
-        DoFile("Main.lua");
+        DoFile("Main");
         
         updateFunc = GetLuaFunction("Update");
         lateUpdateFunc = GetLuaFunction("LateUpdate");
@@ -602,7 +602,7 @@ public class LuaScriptMgr
             }
             else
             {
-                Debugger.LogError("Lua function {0} not exists", name);
+                Debugger.LogWarning("Lua function {0} not exists", name);
             }
 
             LuaDLL.lua_settop(L, oldTop);            

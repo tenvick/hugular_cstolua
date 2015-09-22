@@ -2,23 +2,27 @@ ManifestFileVersion: 0
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: uiatlas.u3d
-      Dependencies: {}
-    Info_1:
       Name: welcome.u3d
-      Dependencies: {}
-    Info_2:
+      Dependencies:
+        Dependency_0: dfphaibaow12gbfont.u3d
+        Dependency_1: tetrisatlas.u3d
+    Info_1:
       Name: frist.u3d
       Dependencies:
-        Dependency_0: uiatlas.u3d
+        Dependency_0: dfphaibaow12gbfont.u3d
+    Info_2:
+      Name: dfphaibaow12gbfont.u3d
+      Dependencies: {}
     Info_3:
-      Name: hall.u3d
+      Name: tetrisatlas.u3d
       Dependencies: {}
     Info_4:
-      Name: alert.u3d
+      Name: blockroot.u3d
       Dependencies:
-        Dependency_0: uiatlas.u3d
+        Dependency_0: dfphaibaow12gbfont.u3d
+        Dependency_1: tetrisatlas.u3d
     Info_5:
-      Name: loading.u3d
+      Name: uipublic.u3d
       Dependencies:
-        Dependency_0: uiatlas.u3d
+        Dependency_0: dfphaibaow12gbfont.u3d
+        Dependency_1: tetrisatlas.u3d

@@ -11,5 +11,6 @@ LuaItemManager:registerItemObject("alertTips","game/alertTips",true)
 
 
 --itemobject
-LuaItemManager:registerItemObject("hall","game/hall",false)
+-- LuaItemManager:registerItemObject("hall","game/hall",false)
 LuaItemManager:registerItemObject("welcome","game/welcome",false)
+LuaItemManager:registerItemObject("tetris","game/tetris",false)

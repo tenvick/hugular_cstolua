@@ -1,15 +1,9 @@
 1:请安装python 2.7
 2:请安装lua 5.1
-3:untiy版本请使用4.5
-4:设置 Edit->Project Setting->Edit->Asset Serialization Mode为Force Text
-5:版本管理 SourceTreeSetup_1.5.2
-6:C#脚本请写在 -Assets/Script 万不得已不要用C#类一般需求都可以在Lua中实现。
+3:untiy版本请使用5.0以上
 
-注意使用GIT管理代码只能签入Assets文件夹里面内容，千万不要签入项目文件
-软件地址：\\192.168.18.8\EsHome\SoftwareShare\Baiyao
 
 说明
-1 -Art 				美术项目
 2 -Client 			程序项目
 3 -Client/tools 		工具目录
 4 -Client/tools/luaTools 	编译lua工具
@@ -34,10 +28,6 @@ Android 发布
 
 其他版本发布
 	菜单Pu Game ->other platform export one key
-
-
----------------------------------------------------UI 制作-----------------------------------
-UIRoot.Manual Height = 1136 不然比例会出问题。
 
 
 ---------------------------------------------------lua 逻辑编写 --------------------------------
@@ -67,4 +57,3 @@ lua逻辑
 	local has = iTween.HashLua(t)
 	iTween.MoveTo(clone,has)
 ====================================================================================================================
-GIT 签入 

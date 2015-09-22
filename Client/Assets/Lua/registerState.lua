@@ -8,5 +8,6 @@ local LuaItemManager = LuaItemManager
 local StateBase = StateBase
 StateManager:setStateTransform(LuaItemManager:getItemObject("transform"))
 
-StateManager.hall = StateBase({LuaItemManager:getItemObject("hall")})
+-- StateManager.hall = StateBase({LuaItemManager:getItemObject("hall")})
 StateManager.welcome = StateBase({LuaItemManager:getItemObject("welcome")})
+StateManager.tetris=StateBase({LuaItemManager:getItemObject("tetris")},"tetris")

@@ -239,7 +239,48 @@ public static class LuaBinding
         _GT(typeof(Texture)),
         _GT(typeof(RenderTexture)),
         _GT(typeof(ParticleSystem)),
+
+#region ugui
+
+        _GT(typeof(UnityEngine.EventSystems.UIBehaviour)),
+        _GT(typeof(UnityEngine.UI.Selectable)),
+        _GT(typeof(UnityEngine.UI.Text)),
+        _GT(typeof(UnityEngine.UI.Graphic)),
+        _GT(typeof(UnityEngine.UI.MaskableGraphic)),
+        _GT(typeof(UnityEngine.UI.Image)),
+        _GT(typeof(UnityEngine.UI.InputField)),
+        _GT(typeof(UnityEngine.UI.Slider)),
+        _GT(typeof(UnityEngine.UI.Scrollbar)),
+
+#endregion
         
+#region hugula
+        _GT(typeof(CryptographHelper)),
+        _GT(typeof(CHighway)),
+        _GT(typeof(CRequest)),
+        _GT(typeof(CTransport)),
+        _GT(typeof(LHighway)),
+        _GT(typeof(LRequest)),
+        _GT(typeof(LNet)),
+        _GT(typeof(Msg)),
+        _GT(typeof(FileHelper)),
+        _GT(typeof(LuaHelper)),
+        _GT(typeof(iTween)),
+        _GT(typeof(LeanTween)),
+        _GT(typeof(LeanTweenType)),
+        _GT(typeof(CEventReceive)),
+        _GT(typeof(Localization)),
+        _GT(typeof(ActivateMonos)),
+        _GT(typeof(NGUIMath)),
+        _GT(typeof(NGUITools)),
+        _GT(typeof(UIEventLuaTrigger)),
+        _GT(typeof(UGUIEvent)),
+        _GT(typeof(UIPanelCamackTable)),
+        _GT(typeof(UGUILocalize)),
+        _GT(typeof(PLua)),
+        _GT(typeof(CUtils))
+
+#endregion 
 
         //ngui
         /*_GT(typeof(UICamera)),
@@ -406,6 +447,12 @@ public static class LuaBinding
             for (int j = 0; j < methods.Length; j++)
             {
                 MethodInfo m = methods[j];
+
+                if (m.IsGenericMethod)
+                {                    
+                    continue;
+                }
+
                 ParameterInfo[] pifs = m.GetParameters();
 
                 for (int k = 0; k < pifs.Length; k++)
@@ -433,7 +480,7 @@ public static class LuaBinding
         list.AddRange(new DelegateType[] {
             _DT(typeof(Action<GameObject>)),
             _DT(typeof(Action)),
-            _DT(typeof(UnityEngine.Events.UnityAction)),         
+            _DT(typeof(UnityEngine.Events.UnityAction)),                     
         });
 
         HashSet<Type> set = beAutoGen ? ToLuaExport.eventSet : GetCustomDelegateTypes();                

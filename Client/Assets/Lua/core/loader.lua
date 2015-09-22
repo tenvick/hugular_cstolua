@@ -4,21 +4,21 @@
 --	author pu
 ------------------------------------------------
 Loader={}
-local Resources = toluacs.UnityEngine.Resources
-local luanet = luanet
-local CTransport=toluacs.CTransport
-local LMultipleLoader=  luanet.import_type("LHighway") --toLuaCS.LMultipleLoader-- local LHighway = luanet.LHighway.instance LMultipleLoader
+local Resources = UnityEngine.Resources
+local luanet = _G
+local CTransport=CTransport
+local LMultipleLoader=  LHighway--luanet.import_type("LHighway") --toLuaCS.LMultipleLoader-- local LHighway = luanet.LHighway.instance LMultipleLoader
 LMultipleLoader=LMultipleLoader.instance
 local Request=luanet.LRequest
 local AssetBundle = luanet.UnityEngine.AssetBundle
 local WWW = luanet.UnityEngine.WWW
 --local to1=luanet.LuaHelper
 --local to2=luanet.CUtils
-local SetReqDataFromData=toluacs.CHighway.SetReqDataFromData
+local SetReqDataFromData=CHighway.SetReqDataFromData
 
-local LuaHelper = toluacs.LuaHelper
+local LuaHelper = LuaHelper
 local delay = delay
-local CUtils = toluacs.CUtils
+local CUtils = CUtils
 
 local Loader=Loader 
 Loader.multipleLoader=LMultipleLoader

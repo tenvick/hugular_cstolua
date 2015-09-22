@@ -214,8 +214,8 @@ public class PLua : MonoBehaviour
     {
         byte[] str = null;
         //Debug.Log(" loade : " + name);
+        name=name.Replace('.','/');
 #if UNITY_EDITOR
-
         if (isDebug)
         {
             string path = Application.dataPath + "/Lua/" + name+".lua";

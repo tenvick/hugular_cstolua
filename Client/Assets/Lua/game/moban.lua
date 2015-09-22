@@ -13,11 +13,6 @@ local delay = delay
 local LuaHelper=LuaHelper
 local CUtils = CUtils
 local getValue = getValue --多国语言
-local showTips = showTips --显示提示
------------------------net--------------------
-local Proxy = Proxy
-local NetAPIList = NetAPIList
-local NetMsgHelper = NetMsgHelper
 
 --UI资源
 youname.assets=
@@ -43,7 +38,7 @@ function youname:onClick(obj,arg)
 	
 end
 
---显示时候调用
+--每次显示时候调用
 function youname:onShowed( ... )
 
 end

@@ -7,7 +7,7 @@ local transform = LuaItemManager:getItemObject("transform")
 transform.priority=100
 transform.assets=
 {
-  Asset("loading.u3d")
+  Asset("uipublic.u3d",{"Loading"})
 }
 
 function transform:onFocus( ... )
