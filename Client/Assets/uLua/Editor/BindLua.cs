@@ -239,7 +239,7 @@ public static class LuaBinding
         _GT(typeof(Texture)),
         _GT(typeof(RenderTexture)),
         _GT(typeof(ParticleSystem)),
-
+		_GT(typeof(RuntimePlatform)),
 #region ugui
 
         _GT(typeof(UnityEngine.EventSystems.UIBehaviour)),

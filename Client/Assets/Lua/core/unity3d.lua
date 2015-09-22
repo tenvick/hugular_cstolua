@@ -7,7 +7,7 @@
 -- import "UnityEngine"
 delay = PLua.Delay
 stopDelay = PLua.StopDelay
-toluacs = _G
+-- toluacs = _G
 if unpack==nil then unpack=table.unpack end
 
 --print =function(...)

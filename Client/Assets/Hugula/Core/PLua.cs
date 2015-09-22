@@ -213,7 +213,7 @@ public class PLua : MonoBehaviour
     public static byte[] Loader(string name)
     {
         byte[] str = null;
-        //Debug.Log(" loade : " + name);
+        Debug.Log(" loade : " + name);
         name=name.Replace('.','/');
 #if UNITY_EDITOR
         if (isDebug)

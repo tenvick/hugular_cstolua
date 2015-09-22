@@ -8,7 +8,7 @@ require("core.loader")
 json=require("lib/json")
 ResVersion = 0
 -- luanet = _G
--- toluacs = _G
+toluacs = luanet
 local resourceURL ="http://192.168.18.152:8345/api" --http://121.199.51.39:8080/client_update?v_id=%s&platform=%s&code=%s";
 
 local progressBarTxt;

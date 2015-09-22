@@ -18,7 +18,7 @@ public class LuaScriptMgr
     }
 
     public LuaState lua;
-    HashSet<string> fileList = null;
+    public HashSet<string> fileList = null;
     Dictionary<string, LuaBase> dict = null;
     //Dictionary<string, IAssetFile> dictBundle = null;    
     LuaFunction updateFunc = null;
@@ -186,12 +186,29 @@ public class LuaScriptMgr
         lua = new LuaState();
         _translator = lua.GetTranslator();
 
-        LuaDLL.luaopen_pb(lua.L);               
+
         //LuaDLL.luaopen_pack(lua.L);
-        LuaDLL.luaopen_ffi(lua.L);
+//        if (AppConst.UsePbLua) {
+//            LuaDLL.luaopen_pb(lua.L);
+//        }
+//        if (AppConst.UsePbc) {
+//            LuaDLL.luaopen_protobuf_c(lua.L);
+//        }
+//        if (AppConst.UseLpeg) {
+//            LuaDLL.luaopen_lpeg(lua.L);
+//        }
+//        if (AppConst.UseCJson) {
+//            LuaDLL.luaopen_cjson(lua.L);
+//            LuaDLL.luaopen_cjson_safe(lua.L);
+//        }
+//        if (AppConst.UseSproto) {
+//            LuaDLL.luaopen_sproto_core(lua.L);
+//        }
+//        if (AppConst.UseLuaSocket) {
+//            LuaDLL.luaopen_socket_core(lua.L);        
+//        }
         LuaDLL.tolua_openlibs(lua.L);
         //OpenXml();        
-        //LuaDLL.luaopen_socket_core(lua.L);        
                 
         fileList = new HashSet<string>();
         dict = new Dictionary<string,LuaBase>();        
@@ -289,21 +306,6 @@ public class LuaScriptMgr
         BindArray(L);
         DelegateFactory.Register(L);
         LuaBinder.Bind(L);
-
-        enumMetaRef = GetTypeMetaRef(typeof(System.Enum));
-        typeMetaRef = GetTypeMetaRef(typeof(System.Type));
-        delegateMetaRef = GetTypeMetaRef(typeof(System.Delegate));
-        iterMetaRef = GetTypeMetaRef(typeof(IEnumerator));
-
-        //LuaDLL.luaL_getmetatable(lua.L, "luaNet_array");
-        //arrayMetaRef = LuaDLL.luaL_ref(lua.L, LuaIndexes.LUA_REGISTRYINDEX);
-
-        foreach (Type t in checkBaseType)
-        {
-            Debugger.LogWarning("BaseType {0} not register to lua", t.FullName);
-        }
-
-        checkBaseType.Clear();
     }
 
     void BindArray(IntPtr L)
@@ -373,6 +375,20 @@ public class LuaScriptMgr
         }*/
 
         OnBundleLoaded();
+
+        enumMetaRef = GetTypeMetaRef(typeof(System.Enum));
+        typeMetaRef = GetTypeMetaRef(typeof(System.Type));
+        delegateMetaRef = GetTypeMetaRef(typeof(System.Delegate));
+        iterMetaRef = GetTypeMetaRef(typeof(IEnumerator));
+
+        //LuaDLL.luaL_getmetatable(lua.L, "luaNet_array");
+        //arrayMetaRef = LuaDLL.luaL_ref(lua.L, LuaIndexes.LUA_REGISTRYINDEX);
+
+        foreach (Type t in checkBaseType) {
+            Debugger.LogWarning("BaseType {0} not register to lua", t.FullName);
+        }
+
+        checkBaseType.Clear();
     }
 
     int GetLuaReference(string str)
@@ -534,6 +550,8 @@ public class LuaScriptMgr
         lua.Dispose();
         lua = null;
 
+        DelegateFactory.Clear();
+//        LuaBinder.wrapList.Clear();
         Debugger.Log("Lua module destroy");        
     }
 
@@ -602,7 +620,7 @@ public class LuaScriptMgr
             }
             else
             {
-                Debugger.LogWarning("Lua function {0} not exists", name);
+                Debugger.LogError("Lua function {0} not exists", name);
             }
 
             LuaDLL.lua_settop(L, oldTop);            
@@ -1968,10 +1986,10 @@ public class LuaScriptMgr
             sf = st.GetFrame(pos++);
             file = sf.GetFileName();
             file = Path.GetFileName(file);
-        } while (!file.Contains("Wrap"));
+        } while (!file.Contains("Wrap."));
 
         int index1 = file.LastIndexOf('\\');
-        int index2 = file.LastIndexOf("Wrap");
+        int index2 = file.LastIndexOf("Wrap.");
         string className = file.Substring(index1 + 1, index2 - index1 - 1);
         return string.Format("{0}.{1}", className, sf.GetMethod().Name);                
     }
