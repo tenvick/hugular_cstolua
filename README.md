@@ -14,6 +14,8 @@ qq群：19324776。
 
 3)如需使用tools辅助功能 需要配置python2.7 lua5.1环境
 
+4)友情支持 https://github.com/jarjin/SimpleFramework_UGUI
+
 框架目录
 ======
 Assets
