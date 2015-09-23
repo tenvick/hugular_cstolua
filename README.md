@@ -16,6 +16,8 @@ qq群：19324776。
 
 4)友情支持 https://github.com/jarjin/SimpleFramework_UGUI
 
+5)兄弟项目 https://github.com/tenvick/hugula
+
 框架目录
 ======
 Assets
@@ -46,14 +48,20 @@ Assets
 2 导出其他
 
  2.1 Hugula/export lua [Assets\Lua]          打包编译脚本 
- 2.2 Hugula/export config [Assets\Config]    打包配置 
+
+ 2.2 Hugula/export config [Assets\Config]    打包配置
+ 
  2.3 Hugula/export language [Assets\Lan]     打包语言包 
 
 3 cstolua build
  3.1 Lua/Lua/Clear LuaBinder File --清理绑定
+ 
  3.2 Lua/Gen Lua Wrap Files     --创建warp文件 （BindLua.cs   LuaBinding.binds 下面的类，如是自定义类需要手动添加到这里）
+ 
  3.3 Lua/Gen u3d Wrap Files     --创建unityEngine 空间下的warp文件 可以不执行这步
+ 
  3.4 Lua/Gen LuaBinder File     --绑定warp文件
+ 
 
 如果生成的warp还有错误需要自行处理注释错误。
 
@@ -63,4 +71,4 @@ Assets
 展示lua components的用法
 是一种非典型的方式
 
-下载地址：http://pan.baidu.com/s/1pJOk13l
+apk下载地址：http://pan.baidu.com/s/1pJOk13l
