@@ -251,6 +251,11 @@ public static class LuaBinding
         _GT(typeof(UnityEngine.UI.InputField)),
         _GT(typeof(UnityEngine.UI.Slider)),
         _GT(typeof(UnityEngine.UI.Scrollbar)),
+        _GT(typeof(UnityEngine.UI.Button)),
+        _GT(typeof(UnityEngine.UI.Button.ButtonClickedEvent)),
+        _GT(typeof(UnityEngine.Events.UnityEventBase)),
+        _GT(typeof(UnityEngine.Events.UnityEvent)),
+        _GT(typeof(UnityEngine.EventSystems.EventSystem)),
 
 #endregion
         
@@ -275,10 +280,11 @@ public static class LuaBinding
         _GT(typeof(NGUITools)),
         _GT(typeof(UIEventLuaTrigger)),
         _GT(typeof(UGUIEvent)),
-        _GT(typeof(UIPanelCamackTable)),
         _GT(typeof(UGUILocalize)),
         _GT(typeof(PLua)),
-        _GT(typeof(CUtils))
+        _GT(typeof(CUtils)),
+        _GT(typeof(ScrollRectItem)),
+        _GT(typeof(ScrollRectTable))
 
 #endregion 
 

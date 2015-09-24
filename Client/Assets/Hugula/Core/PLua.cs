@@ -1,5 +1,5 @@
-// Copyright (c) 2014 hugula
-// direct https://github.com/Hugulor/Hugula
+// Copyright (c) 2015 hugula
+// direct https://github.com/tenvick/Hugula
 //
 using UnityEngine;
 using System.Collections;
@@ -12,9 +12,7 @@ using System.Text;
 
 using LuaInterface;
 using Lua = LuaScriptMgr;
-using LuaState = System.IntPtr;
-using MonoPInvokeCallbackAttribute = LuaInterface.MonoPInvokeCallbackAttribute;
-using LuaCSFunction = LuaInterface.LuaCSFunction;
+
 
 public class PLua : MonoBehaviour
 {
@@ -26,15 +24,11 @@ public class PLua : MonoBehaviour
     public Lua lua;
     public LNet net;
     public LNet ChatNet;
-
-    //lua资源缓存路径
     public static Dictionary<string, TextAsset> luacache;
 
     #region priveta
-    //入口lua
     private string luaMain = "";
-    //程序集名key
-    private const string assemblyname = "assemblyname";
+    private const string initLua = @"require(""core.unity3d"")";
 
     private LuaFunction _updateFn;
 
@@ -105,7 +99,7 @@ public class PLua : MonoBehaviour
 
     private void LoadScript()
     {
-        //SetLuaPath();
+        SetLuaPath();
 
         RegisterFunc();
 
@@ -115,14 +109,13 @@ public class PLua : MonoBehaviour
     }
 
     /// <summary>
-    /// 加载lua bundle
+    /// lua bundle
     /// </summary>
     /// <returns></returns>
     private IEnumerator loadLuaBundle(bool domain,LuaFunction onLoadedFn)
     {
         string keyName = "";
         string luaP = CUtils.GetAssetFullPath("font.u3d");
-        //Debug.Log("load lua bundle" + luaP);
         WWW luaLoader = new WWW(luaP);
         yield return luaLoader;
         if (luaLoader.error == null)
@@ -130,13 +123,11 @@ public class PLua : MonoBehaviour
 			byte[] byts=CryptographHelper.Decrypt(luaLoader.bytes,DESHelper.instance.Key,DESHelper.instance.IV);
 			AssetBundle item = AssetBundle.CreateFromMemoryImmediate(byts);
 
-//            item = luaLoader.assetBundle;
 #if UNITY_5
                     TextAsset[] all = item.LoadAllAssets<TextAsset>();
                     foreach (var ass in all)
                     {
                         keyName = Regex.Replace(ass.name,@"\.","");
-                        //Debug.Log("cache : " + keyName);
                         luacache[keyName] = ass;
                     }
 #else
@@ -144,12 +135,9 @@ public class PLua : MonoBehaviour
             foreach (var ass in all)
             {
                 keyName = Regex.Replace(ass.name,@"\.","");
-                Debug.Log(keyName + " complete");
                 luacache[keyName] = ass as TextAsset;
             }
 #endif
-                    //Debug.Log("loaded lua bundle complete" + luaP);
-//            luaLoader.assetBundle.Unload(false);
 			item.Unload(false);
             luaLoader.Dispose();
         }
@@ -165,16 +153,15 @@ public class PLua : MonoBehaviour
 
     public void DoUnity3dLua()
     {
-        //lua.DoString(initLua);//执行unity3dlua
+        lua.Start();
     }
 
     /// <summary>
-    /// 执行开始文件
+    /// lua begin
     /// </summary>
     public void DoMain()
     {
-        lua.Start();
-        //lua.DoString(this.luaMain);
+        lua.DoString(this.luaMain);
     }
 
     /// <summary>
@@ -182,16 +169,28 @@ public class PLua : MonoBehaviour
     /// </summary>
     public void LoadBundle(bool domain)
     {
-        StopCoroutine(loadLuaBundle(domain, null));
-        StartCoroutine(loadLuaBundle(domain, null));
+#if UNITY_EDITOR 
+		if(!isDebug)
+		{
+	        StopCoroutine(loadLuaBundle(domain, null));
+	        StartCoroutine(loadLuaBundle(domain, null));
+		}else
+		{
+			DoUnity3dLua();
+			if (domain)
+				DoMain();
+		}
+#else
+		StopCoroutine(loadLuaBundle(domain, null));
+		StartCoroutine(loadLuaBundle(domain, null));
+#endif
     }
 
     /// <summary>
-    /// 加载lua 打包文件
+    /// load assetbundle
     /// </summary>
     public void LoadBundle(LuaFunction onLoadedFn)
     {
-        //Debug.Log(" refresh LoadBundle ");
         StopCoroutine(loadLuaBundle(false, onLoadedFn));
         StartCoroutine(loadLuaBundle(false, onLoadedFn));
     }
@@ -206,16 +205,16 @@ public class PLua : MonoBehaviour
     }
 
     /// <summary>
-    /// 自定义loader
+    ///  loader
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
     public static byte[] Loader(string name)
     {
         byte[] str = null;
-        Debug.Log(" loade : " + name);
-        name=name.Replace('.','/');
+        name = name.Replace('.','/'); 
 #if UNITY_EDITOR
+
         if (isDebug)
         {
             string path = Application.dataPath + "/Lua/" + name+".lua";
@@ -237,7 +236,6 @@ public class PLua : MonoBehaviour
                 str = file.bytes;
             }
         }
-
 #else
 		name = Regex.Replace(name,"/",""); 
 
@@ -250,11 +248,6 @@ public class PLua : MonoBehaviour
         return str;
     }
 
-
-    public static void Log(object msg)
-    {
-        Debug.Log(msg);
-    }
 
     public static void Delay(LuaFunction luafun, float time, object args = null)
     {

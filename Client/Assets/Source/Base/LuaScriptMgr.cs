@@ -440,13 +440,13 @@ public class LuaScriptMgr
         traceback = GetLuaFunction("traceback");
 #endif                       
 
-        DoFile("Main");
+        //DoFile("Main");
         
-        updateFunc = GetLuaFunction("Update");
-        lateUpdateFunc = GetLuaFunction("LateUpdate");
-        fixedUpdateFunc = GetLuaFunction("FixedUpdate");
-        levelLoaded = GetLuaFunction("OnLevelWasLoaded");
-        CallLuaFunction("Main");
+        //updateFunc = GetLuaFunction("Update");
+        //lateUpdateFunc = GetLuaFunction("LateUpdate");
+        //fixedUpdateFunc = GetLuaFunction("FixedUpdate");
+        //levelLoaded = GetLuaFunction("OnLevelWasLoaded");
+        //CallLuaFunction("Main");
     }
 
     public void OnLevelLoaded(int level)
