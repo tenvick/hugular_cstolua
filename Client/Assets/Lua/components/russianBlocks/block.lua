@@ -147,7 +147,7 @@ local function rotate(blockRefs)
 	 local size=#data
 	 local ty = 0
 
-	local count = blockRefs.refers.Count-1
+	local count = blockRefs.refers.Length-1
 	local item,name by,bx=nil,"",0,0
 	local blockDic,dic ={},{}
 	for i=0,count do
@@ -182,7 +182,7 @@ end
 
 local function cloneBlock(blockRefs)
 	local data=blockRefs.userObject
-	local count = blockRefs.refers.Count-1
+	local count = blockRefs.refers.Length-1
 	local blockDic,item,name ={},nil,""
 	for i=0,count do
 		item=blockRefs.refers[i]

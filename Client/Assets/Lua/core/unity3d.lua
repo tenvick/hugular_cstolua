@@ -7,7 +7,7 @@
 -- import "UnityEngine"
 delay = PLua.Delay
 stopDelay = PLua.StopDelay
--- toluacs = _G
+
 if unpack==nil then unpack=table.unpack end
 
 --print =function(...)
@@ -54,15 +54,7 @@ end
 
 function printTable(tbl)	print(tojson(tbl)) end
 
-function string:split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match)
-    end
-    return result
-end
-
-function split(s, delimiter)
+function string.split(s, delimiter)
     result = {};
     for match in (s..delimiter):gmatch("(.-)"..delimiter) do
         table.insert(result, match)
@@ -114,8 +106,6 @@ function class(base, _ctor)
 end
 
 function luaGC()
-  -- local c=collectgarbage("count")
-  -- print("begin gc ="..tostring(c).." ")
   collectgarbage("collect")
   c=collectgarbage("count")
   print(" gc end ="..tostring(c).." ")

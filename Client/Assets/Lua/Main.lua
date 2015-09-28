@@ -94,7 +94,6 @@ local function  onUpdateResComp(req)
 	if(www) then
 		local txt=www[0]
         local res = json:decode(txt)
-        print(txt)
 		if res["error"] then
 			enterGame()
 		elseif res["update_url"] then
@@ -175,7 +174,7 @@ local function checkVerion()
 end
 
 local function loadFrist()
-    print("loadFrist")
+
     Loader:RefreshAssetBundleManifest()
 	local function onLoadComp(r)
 		local www=r.data
@@ -183,13 +182,13 @@ local function loadFrist()
 		--print(www)
         local fristView = LuaHelper.Instantiate(r.data)
         progressBarTxt = LuaHelper.GetComponentInChildren(fristView,"UnityEngine.UI.Text")
-        progressBarTxt.text="check resource  ..."
+        -- progressBarTxt.text="check resource  ..."
         r.assetBundle:Unload(false)
         fristView.name = "Frist"
         checkVerion()
     end
 
-	-- Application.targetFrameRate=30
+	Application.targetFrameRate=30
    
 --    checkVerion()
 	 local url = CUtils.GetAssetFullPath(FRIST_VIEW)

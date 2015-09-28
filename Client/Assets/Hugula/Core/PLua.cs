@@ -1,5 +1,5 @@
 // Copyright (c) 2015 hugula
-// direct https://github.com/tenvick/Hugula
+// direct https://github.com/tenvick/hugula
 //
 using UnityEngine;
 using System.Collections;
@@ -123,21 +123,13 @@ public class PLua : MonoBehaviour
 			byte[] byts=CryptographHelper.Decrypt(luaLoader.bytes,DESHelper.instance.Key,DESHelper.instance.IV);
 			AssetBundle item = AssetBundle.CreateFromMemoryImmediate(byts);
 
-#if UNITY_5
-                    TextAsset[] all = item.LoadAllAssets<TextAsset>();
-                    foreach (var ass in all)
-                    {
-                        keyName = Regex.Replace(ass.name,@"\.","");
-                        luacache[keyName] = ass;
-                    }
-#else
-            UnityEngine.Object[] all = item.LoadAll(typeof(TextAsset));
+            TextAsset[] all = item.LoadAllAssets<TextAsset>();
             foreach (var ass in all)
             {
-                keyName = Regex.Replace(ass.name,@"\.","");
-                luacache[keyName] = ass as TextAsset;
+				keyName = ass.name;
+                luacache[keyName] = ass;
             }
-#endif
+
 			item.Unload(false);
             luaLoader.Dispose();
         }
@@ -165,7 +157,7 @@ public class PLua : MonoBehaviour
     }
 
     /// <summary>
-    /// 加载lua 打包文件
+	/// load assetbundle
     /// </summary>
     public void LoadBundle(bool domain)
     {
@@ -212,11 +204,11 @@ public class PLua : MonoBehaviour
     public static byte[] Loader(string name)
     {
         byte[] str = null;
-        name = name.Replace('.','/'); 
 #if UNITY_EDITOR
 
         if (isDebug)
         {
+			name = name.Replace('.','/'); 
             string path = Application.dataPath + "/Lua/" + name+".lua";
             try
             {
@@ -224,12 +216,11 @@ public class PLua : MonoBehaviour
             }
             catch
             {
-                //LuaDLL.luaL_error(ToLuaCS.lua.L, "Loader file failed: " + name);
             }
         } 
         else
         {
-            name =  Regex.Replace(name, @"/", "");
+			name = name.Replace('.','_').Replace('/','_'); 
             if (luacache.ContainsKey(name))
             {
                 TextAsset file = luacache[name];
@@ -237,12 +228,11 @@ public class PLua : MonoBehaviour
             }
         }
 #else
-		name = Regex.Replace(name,"/",""); 
-
+		name = name.Replace('.','_').Replace('/','_'); 
         if(luacache.ContainsKey(name))
         {
-        TextAsset file = luacache[name];
-        str = file.bytes;
+	        TextAsset file = luacache[name];
+	        str = file.bytes;
         }
 #endif
         return str;

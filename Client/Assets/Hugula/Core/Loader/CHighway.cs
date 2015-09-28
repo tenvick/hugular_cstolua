@@ -51,8 +51,8 @@ public class CHighway
         {
             requestCallBackList[key] = new List<CRequest>();
             requestCallBackList[key].Add(req);
-            //			Debug.Log("requestCallBackList:"+req.key+"  "+req.udKey);
-            queue.Add(req);
+
+			queue.Add(req);
             if (queue.Size() == 0 && currentLoading == 0)
             {
                 totalLoading = 1;
@@ -73,10 +73,6 @@ public class CHighway
             this.currentLoaded = 0;
             this.loadingEvent.current = currentLoaded;
         }
-        else
-        {
-            //this.totalLoading=totalLoading+this.queue.size();
-        }
     }
 
     protected void BeginQueue()
@@ -88,7 +84,6 @@ public class CHighway
             if (req1 != null && !LoadRequest(req1))
             {
                 queue.Add(req1);//need reload
-                //				Debug.Log("  no free transport:  "+req1.key);
                 break;
             }
         }
@@ -123,8 +118,7 @@ public class CHighway
         string key = req.udKey;
         CRequest load = loader[key];
         loader.Remove(key);
-        //		load.Dispose();
-        //		load=null;
+
     }
 
 
@@ -188,14 +182,12 @@ public class CHighway
                 cts.OnComplete = LoadComplete;
                 cts.OnError = LoadError;
                 cts.OnProcess = OnProcess;
-                //				Debug.Log(gobj.name+" created ");
             }
         }
 
         for (int i = 0; i < _maxLoading; i++)
         {
             loader = this.loaderPool[i];
-            //			Debug.Log(loader.name+" isFree =  "+ loader.isFree +" ");
             if (loader.isFree)
                 return loader;
         }
@@ -213,11 +205,9 @@ public class CHighway
             {
                 object data = SetReqDataFromWWW(childReq, childReq.www);
                 if (childReq.cache || childReq.isShared) SetCache(childReq.key, data);
-                //Debug.Log("_______loadComplete <<" + childReq.key + ">>  depens:" + req.key + "  count:" + childReq.dependenciesCount.ToString());
                 Callbacklist(childReq);
             }
         }
-        //Debug.Log("OnDependencyComp  <<" + req.key + ">>  is complete ");
 
         BeginQueue();
 
@@ -226,12 +216,7 @@ public class CHighway
 
     protected virtual void LoadComplete(CTransport loader, CRequest creq, IList<CRequest> depens)
     {
-//#if UNITY_EDITOR
-//        if (creq.isShared)
-//            Debug.Log("_______loadComplete  <<" + creq.key + ">> is Shared  ");
-//        else
-//            Debug.Log("______loadComplete  <<" + creq.key + ">>  depens:" + (depens != null).ToString());
-//#endif
+
         RemoveRequest(creq);
 
         if (depens != null) //if have depens
@@ -242,7 +227,6 @@ public class CHighway
             creq.dependenciesCount = depens.Count;
             string key = string.Empty;
 
-            //Debug.Log("______begin load<" + creq.key + "> and  depens :" + depens.Count.ToString());
             for (int i = 0; i < depens.Count; i++)
             {
                 req1 = depens[i];
@@ -262,7 +246,6 @@ public class CHighway
         }
         else
         {
-            //Debug.Log("______loadComplete:<" + creq.key + "> ");
 
             object data = SetReqDataFromWWW(creq, creq.www);
 
@@ -302,7 +285,6 @@ public class CHighway
                 this.OnAllComplete(this);
 
             //Debug.Log("AllComplete"+currentLoading);
-            //initProgressState();
         }
 
     }
@@ -387,15 +369,17 @@ public class CHighway
         if (data is AssetBundle)
         {
             req.assetBundle = data as AssetBundle;
-            if (!assetType.IsArray)
-            {
-                //Debug.Log(req.key + "assetName: " + req.assetName);
-                req.data = req.assetBundle.LoadAsset(req.assetName, assetType);
-            }
-            else
-            {
-                req.data = req.assetBundle.LoadAllAssets(assetType);
-            }
+			if(req.assetBundle!=null)
+			{
+	            if (!assetType.IsArray)
+	            {
+	                req.data = req.assetBundle.LoadAsset(req.assetName, assetType);
+	            }
+	            else
+	            {
+	                req.data = req.assetBundle.LoadAllAssets(assetType);
+	            }
+			}
         }
         else if (data.GetType() == typeof(System.String))
         {

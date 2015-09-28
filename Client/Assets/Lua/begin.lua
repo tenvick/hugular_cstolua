@@ -30,20 +30,27 @@ local NetAPIList = NetAPIList
 
 StateManager:setCurrentState(StateManager.welcome)
 
+-- require("netGame")
 
 local function update()
 	local cmp
 	local len
-	-- while true do
-		len = #UPDATECOMPONENTS
-		local ostime=os.clock()
-		for i=1,len do
-			cmp=UPDATECOMPONENTS[i]
-			if cmp.enable then	cmp:onUpdate(ostime) end
-		end
-
-	-- 	coroutine.yield()
-	-- end
+	len = #UPDATECOMPONENTS
+	local ostime=os.clock()
+	for i=1,len do
+		cmp=UPDATECOMPONENTS[i]
+		if cmp.enable then	cmp:onUpdate(ostime) end
+	end
 end
 
 pLua.updateFn=update
+
+
+--load config
+require("game.common.loadCSV")
+
+delay(function( ... )
+	print(getValue("level_name_001")) --language key
+	print(Model.getUnit(200001).name) --read config
+	-- Loader:clearSharedAB() 
+end,0.5,nil)

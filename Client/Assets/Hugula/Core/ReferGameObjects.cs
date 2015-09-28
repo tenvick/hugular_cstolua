@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 public class ReferGameObjects : MonoBehaviour {
 	
-	public List<GameObject> refers=new List<GameObject>();
+	public GameObject[] refers ;//=new List<GameObject>();
 
-    public List<Behaviour> monos = new List<Behaviour>();
+	public Behaviour[] monos;// = new List<Behaviour>();
 	
 	public object userObject;
 	

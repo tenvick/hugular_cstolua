@@ -1,5 +1,5 @@
-﻿// Copyright (c) 2014 hugula
-// direct https://github.com/Hugulor/Hugula
+﻿// Copyright (c) 2015 hugula
+// direct https://github.com/tenvick/hugula
 //
 using UnityEngine;
 using System.Collections.Generic;
@@ -76,7 +76,7 @@ public class  LuaHelper {
 		Vector3 scale = tranformTa.localScale;
 		GameObject clone = (GameObject)GameObject.Instantiate(original);
 		var transform=clone.transform;
-		if(parent!=null)clone.transform.parent = parent.transform;
+		if(parent!=null)clone.transform.SetParent(parent.transform);
 		transform.localPosition = pos;
 		transform.localScale = scale;
 		transform.localRotation = rota;
@@ -97,7 +97,7 @@ public class  LuaHelper {
         Vector3 scale = tranformTa.localScale;
         GameObject clone = (GameObject)GameObject.Instantiate(original);
         var transform = clone.transform;
-        if (parent != null) clone.transform.parent = parent.transform;
+        if (parent != null) clone.transform.SetParent(parent.transform);
         transform.position = pos;
         transform.localScale = scale;
         transform.rotation = rota;
@@ -116,7 +116,7 @@ public class  LuaHelper {
         var rota = tranformTa.localRotation;
         var scale = tranformTa.localScale;
 
-        child.transform.parent = parent.transform;
+        child.transform.SetParent(parent.transform);
         tranformTa.localPosition = pos;
         tranformTa.localScale = scale;
         tranformTa.localRotation = rota;
@@ -182,6 +182,7 @@ public class  LuaHelper {
 		if (t != null && obj != null)comp = obj.GetComponentInChildren(t);
 		return comp;
 	}
+
 
     /// <summary>
     /// 
@@ -280,8 +281,8 @@ public class  LuaHelper {
     /// <param name="eachFn"></param>
     public static void ForeachChild(ReferGameObjects parent, LuaFunction eachFn)
     {
-        List<GameObject> lists = parent.refers;
-        int count = lists.Count;
+        GameObject[] lists = parent.refers;
+        int count = lists.Length;
         GameObject child = null;
         for (int i = 0; i < count; i++)
         {

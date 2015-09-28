@@ -4,7 +4,7 @@
 --  author pu
 ------------------------------------------------
 local LuaItemManager = LuaItemManager
-local Resources = toluacs.UnityEngine.Resources
+local Resources = UnityEngine.Resources
 StateManager =
 {
     m_currentGameState  =   nil,

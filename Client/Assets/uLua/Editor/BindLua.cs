@@ -240,6 +240,7 @@ public static class LuaBinding
         _GT(typeof(RenderTexture)),
         _GT(typeof(ParticleSystem)),
 		_GT(typeof(RuntimePlatform)),
+        _GT(typeof(UnityEngine.AssetBundleManifest)),
 #region ugui
 
         _GT(typeof(UnityEngine.EventSystems.UIBehaviour)),
@@ -256,6 +257,7 @@ public static class LuaBinding
         _GT(typeof(UnityEngine.Events.UnityEventBase)),
         _GT(typeof(UnityEngine.Events.UnityEvent)),
         _GT(typeof(UnityEngine.EventSystems.EventSystem)),
+        _GT(typeof(UnityEngine.RectTransform)),
 
 #endregion
         
@@ -284,8 +286,8 @@ public static class LuaBinding
         _GT(typeof(PLua)),
         _GT(typeof(CUtils)),
         _GT(typeof(ScrollRectItem)),
-        _GT(typeof(ScrollRectTable))
-
+        _GT(typeof(ScrollRectTable)),
+        _GT(typeof(ReferGameObjects))
 #endregion 
 
         //ngui
