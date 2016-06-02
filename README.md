@@ -1,4 +1,7 @@
 # hugular_cstolua
+
+此项目暂停维护 请迁移到 https://github.com/tenvick/hugula
+======
 Hugula 游戏框架 for cstolua
 ======
 Hugula是一个基于unity3d+cstolua技术的全LUA免费开源游戏框架，适用于中大型游戏开发，已经开发过两款卡牌带arpg战斗游戏。
